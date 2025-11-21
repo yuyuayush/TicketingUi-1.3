@@ -43,6 +43,9 @@ const BookingPanel: React.FC<BookingPanelProps> = ({
   };
 
 
+  
+
+
   return (
     <Card className="w-96 p-4">
       <CardHeader>

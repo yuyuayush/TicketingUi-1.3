@@ -640,6 +640,44 @@ export const StripeApi = {
 };
 
 
+export const seatsioApi = {
+    async lockSeats(payload: {
+        chartKey: string;
+        seats: string[];
+    }): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/seats/lock-seats`, {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+    },
+
+    async releaseSeats(payload: {
+        chartKey: string;
+        seats: string[];
+        holdToken: string;
+    }): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/seats/release-seats`, {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+    },
+
+    async confirmBooking(payload: {
+        chartKey: string;
+        seats: string[];
+        holdToken: string;
+        userId: string;
+    }): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/seats/confirm-booking`, {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+    },
+};
+
+
+
+
 
 
 
