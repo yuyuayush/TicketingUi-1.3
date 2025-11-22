@@ -10,7 +10,6 @@ const Features = dynamic(() => import('@/components/landing/Features'), { ssr: f
 const HowItWorks = dynamic(() => import('@/components/landing/HowItWorks'), { ssr: false });
 const Destinations = dynamic(() => import('@/components/landing/Destinations'), { ssr: false });
 const Testimonials = dynamic(() => import('@/components/landing/Testimonials'), { ssr: false });
-const Footer = dynamic(() => import('@/components/landing/Footer'), { ssr: false });
 const Nav = dynamic(() => import('@/components/landing/Nav'), { ssr: false });
 
 export default function RootApp() {
@@ -58,7 +57,6 @@ export default function RootApp() {
         <HowItWorks />
         <Testimonials />
         <Destinations />
-        <Footer />
       </div>
     </>
   );

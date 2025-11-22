@@ -83,9 +83,9 @@ const Hero = () => {
           muted
           playsInline
           className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover -translate-x-1/2 -translate-y-1/2"
-          poster="https://placehold.co/1920x1080/000/000?text=Hero+Video+Fallback"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-concert-crowd-with-lights-1011-large.mp4" type="video/mp4" />
+            poster="https://placehold.co/1920x1080/000/000?text=Hero+Video+Fallback"
+          >
+          <source src="../../../../../edulink/public/video/heroVideo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         {/* Dark Overlay for Readability */}
