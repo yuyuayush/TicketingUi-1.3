@@ -10,6 +10,12 @@ export interface User {
   bio?: string;
 }
 
+export interface MenuItem {
+  label: string;
+  path: string;
+  icon: string;
+}
+
 export interface SeatMapProps {
   seats: any[];
   toggleSeat: (seat: any) => void;

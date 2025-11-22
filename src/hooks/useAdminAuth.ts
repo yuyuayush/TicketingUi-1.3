@@ -1,6 +1,6 @@
 "use client";
 
-import { userApi } from "@/lib/api"; // Adjust path as necessary
+import { adminApi, userApi } from "@/lib/api"; // Adjust path as necessary
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "./use-toast"; // Adjust path as necessary
 import {
@@ -10,7 +10,11 @@ import {
   IAdminUpdateUserData,
   IResetPasswordData,
   IGetAllUsersParams,
+  MenuItem,
+  ApiResponse,
 } from "@/lib/types"; // Adjust path as necessary
+import { useAuthStore } from "@/store/useAuth";
+import { USER_ROLES } from "@/lib/constants";
 
 // --- Query Keys ---
 const PROFILE_QUERY_KEY = ["userProfile"];
@@ -26,10 +30,7 @@ export const useGetProfile = () => {
   });
 };
 
-/**
- * Updates the name and phone of the currently logged-in user.
- * @PUT /profile
- */
+
 export const useUpdateProfile = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -40,7 +41,7 @@ export const useUpdateProfile = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEY });
       toast({
-        title: "Profile Updated ✨",
+        title: "Profile Updated ",
         description: "Your profile details have been successfully updated.",
       });
     },
@@ -49,17 +50,14 @@ export const useUpdateProfile = () => {
         error?.response?.data?.error || error?.message || "Failed to update profile.";
       toast({
         variant: "destructive",
-        title: "Update Failed ❌",
+        title: "Update Failed ",
         description: errorMessage,
       });
     },
   });
 };
 
-/**
- * Allows the logged-in user to change their own password.
- * @PUT /profile/password
- */
+
 export const useUpdatePassword = () => {
   const { toast } = useToast();
 
@@ -77,7 +75,7 @@ export const useUpdatePassword = () => {
         error?.response?.data?.error || error?.message || "Failed to update password.";
       toast({
         variant: "destructive",
-        title: "Update Failed ❌",
+        title: "Update Failed ",
         description: errorMessage,
       });
     },
@@ -88,10 +86,6 @@ export const useUpdatePassword = () => {
 // 2. ADMIN HOOKS (User Management)
 // ====================================================================
 
-/**
- * Retrieves a paginated and searchable list of all users. (Admin Only)
- * @GET /users
- */
 export const useGetAllUsers = (params: IGetAllUsersParams = {}) => {
   return useQuery({
     queryKey: [...ALL_USERS_QUERY_KEY, params],
@@ -100,10 +94,7 @@ export const useGetAllUsers = (params: IGetAllUsersParams = {}) => {
   });
 };
 
-/**
- * Updates a user's details by ID. (Admin Only)
- * @PUT /users/:id
- */
+
 export const useUpdateUserByAdmin = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -115,7 +106,7 @@ export const useUpdateUserByAdmin = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ALL_USERS_QUERY_KEY });
       toast({
-        title: "User Updated ✏️",
+        title: "User Updated ",
         description: "User details updated successfully by admin.",
       });
     },
@@ -124,7 +115,7 @@ export const useUpdateUserByAdmin = () => {
         error?.response?.data?.error || error?.message || "Failed to update user.";
       toast({
         variant: "destructive",
-        title: "Admin Update Failed ❌",
+        title: "Admin Update Failed ",
         description: errorMessage,
       });
     },
@@ -153,7 +144,7 @@ export const useResetUserPassword = () => {
         error?.response?.data?.error || error?.message || "Failed to reset password.";
       toast({
         variant: "destructive",
-        title: "Reset Failed ❌",
+        title: "Reset Failed ",
         description: errorMessage,
       });
     },
@@ -183,9 +174,36 @@ export const useDeleteUser = () => {
         error?.response?.data?.error || error?.message || "Failed to delete user.";
       toast({
         variant: "destructive",
-        title: "Delete Failed ❌",
+        title: "Delete Failed ",
         description: errorMessage,
       });
     },
   });
 };
+
+
+export const useAdminMenu = () => {
+  const { currentUser } = useAuthStore();
+  return useQuery({
+    queryKey: ["adminMenu"],
+    select: (res) => res.data?.menu,
+    queryFn: () => adminApi.getAdminMenu(),
+    staleTime: 5 * 60 * 10000,
+    retry: false,
+    enabled: currentUser?.role === USER_ROLES.admin,
+  });
+};
+
+export const useAdminSideMenu = () => {
+  const { currentUser } = useAuthStore();
+  return useQuery({
+    queryKey: ["adminSideMenu"],
+    queryFn: () => adminApi.getAdminSideMenu(),
+    select: (res) => res.data?.menu,
+    staleTime: 5 * 60 * 10000,
+    retry: 2,
+    enabled: currentUser?.role === USER_ROLES.admin,
+
+  });
+};
+

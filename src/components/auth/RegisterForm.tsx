@@ -43,23 +43,12 @@ export function RegisterForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      const res = await registerMutation({ name: values.name, email: values.email, password: values.password });
-      router.push("/");
-      localStorage.setItem("ticketing-user", JSON.stringify(response.user));
-      toast({
-        title: "Registration Successful",
-        description:
-          "Welcome to AIQ Learning! Redirecting you to your dashboard.",
-      });
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Registration Failed",
-        description:
-          (error as Error).message || "An unexpected error occurred.",
-      });
-    }
+
+    const res = await registerMutation({ name: values.name, email: values.email, password: values.password });
+    const data = res.data;
+    router.push("/");
+    localStorage.setItem("ticketing-user", JSON.stringify(data.user));
+
   }
 
   return (
