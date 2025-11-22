@@ -151,9 +151,15 @@ export default function Header() {
             <Link href="/tickets" className="hover:text-pink-600 flex items-center gap-1">
               <Ticket size={16} /> My Tickets
             </Link>
-            <Link href="/seller" className="hover:text-pink-600 flex items-center gap-1">
-              <Ticket size={16} /> Sell Tickets
-            </Link>
+            {
+              menuData?.map((item) => (
+                <Link href={item.path}>
+                  <button className="w-fit flex items-center gap-3 bg-gradient-to-r from-pink-600 to-red-500 text-white px-4 py-2 text-sm rounded-lg font-medium hover:opacity-90 transition">
+                    <Ticket size={16} /> {item.label}
+                  </button>
+                </Link>
+              ))
+            }
           </nav>
         </div>
       )}

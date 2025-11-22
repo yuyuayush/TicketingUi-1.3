@@ -22,7 +22,7 @@
   font-display: swap;
 }
 
-
+/* 
 html,
 body {
   height: 100%;
@@ -97,6 +97,8 @@ body {
   }
 }
 
+*/
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -108,7 +110,44 @@ body {
   }
 }
 
+
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-in-out;
 }
+ 
 
+
+
+@layer base {
+  :root {
+    --neon-purple: 180 100% 60%;
+    --neon-blue: 240 100% 65%;
+    --neon-pink: 330 100% 60%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-black text-white overflow-x-hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  h1, h2, h3 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+/* Custom scroll for webkit */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #9d4edd, #4361ee);
+  border-radius: 4px;
+}

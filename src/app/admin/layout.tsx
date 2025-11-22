@@ -16,16 +16,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   // Redirect non-admins before paint
   useLayoutEffect(() => {
     if (currentUser?.role !== USER_ROLES.admin) {
-      router.replace("/"); // immediately redirect
+      router.replace("/"); 
     }
   }, [currentUser, router]);
 
   // Fetch menu data
   const { data: menuData, isLoading: menuLoading, isError: menuError } = useAdminSideMenu();
 
-  const isLoading = menuLoading;
 
-  if (isLoading) {
+  if (menuLoading) {
     return (
       <div className="flex min-h-screen bg-gray-50">
         <aside className="w-64 bg-white shadow-md p-5 space-y-4 animate-pulse">
@@ -54,13 +53,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </div>
     );
   }
+  console.log(menuData);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <aside className="w-64 bg-white shadow-md p-5 space-y-6">
         <h2 className="text-2xl font-bold text-indigo-600 mb-4">Admin Panel</h2>
         <nav className="flex flex-col space-y-2">
-          {menuData?.data?.menu?.map((link) => {
+          {menuData?.map((link) => {
             const active = pathname === link.path;
             const Icon = Icons[link.icon] || Icons.Circle;
             return (

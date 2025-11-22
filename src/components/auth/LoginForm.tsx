@@ -45,18 +45,7 @@ export function LoginForm({ allowedRole }: LoginFormProps) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      const res = await loginMutation({ email: values.email, password: values.password });
-      router.push("/");
-      localStorage.setItem("ticketing-user", JSON.stringify(response.user));
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description:
-          (error as Error).message || "An unexpected error occurred.",
-      });
-    }
+    await loginMutation({ email: values.email, password: values.password });
   }
 
   return (
