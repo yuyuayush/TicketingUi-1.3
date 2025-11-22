@@ -202,7 +202,7 @@ export const useAdminSideMenu = () => {
     select: (res) => res.data?.menu,
     staleTime: 5 * 60 * 10000,
     retry: 2,
-    enabled: currentUser?.role === USER_ROLES.admin,
+    // enabled: currentUser?.role === USER_ROLES.admin,
 
   });
 };

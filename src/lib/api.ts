@@ -686,13 +686,22 @@ export const adminApi = {
         });
     },
 
-    /** Fetch admin side menu (optional / role-based) */
+
     async getAdminSideMenu(): Promise<ApiResponse<{ menu: MenuItem[] }>> {
         return await apiRequest<ApiResponse<{ menu: MenuItem[] }>>(`/admin/admin-side-menu`, {
             method: "GET",
         });
     },
-    
+    async getDasboard(): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/admin/dashboard`);
+    },
+    async analytics(): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/admin/analytics`);
+    },
+
+
+
+
 
 };
 

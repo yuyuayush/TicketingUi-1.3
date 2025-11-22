@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bebas_Neue, Dancing_Script } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import ConditionalHeader from "@/components/common/ConditionalHeader";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/Toaster";
 import Providers from "@/configs/Provider";
@@ -43,12 +43,12 @@ export default function RootLayout({ children }: React.PropsWithChildren<{}>) {
         className={`${geistSans.variable} ${geistMono.variable} ${bebasNeueCertificate.variable} ${dancingScriptCertificate.variable} antialiased`}
       >
           <Providers>
-          <Header />
+          <ConditionalHeader />
           <main>{children}</main>
           <Footer />
           <Toaster />
           </Providers>
-            
+
       </body>
     </html>
   );

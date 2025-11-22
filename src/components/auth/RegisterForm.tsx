@@ -45,9 +45,8 @@ export function RegisterForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
     const res = await registerMutation({ name: values.name, email: values.email, password: values.password });
-    const data = res.data;
     router.push("/");
-    localStorage.setItem("ticketing-user", JSON.stringify(data.user));
+    localStorage.setItem("ticketing-user", JSON.stringify(res.data.user));
 
   }
 

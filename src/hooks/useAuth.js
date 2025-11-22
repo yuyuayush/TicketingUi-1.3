@@ -19,15 +19,15 @@ export const useUserLogin = () => {
     onSuccess: (res) => {
       setUser(res.data?.user);
       toast({
-        title: "Login Successful 🎉",
+        title: "Login Successful",
         description: "You are now logged in.",
       });
-      localStorage.setItem("ticketing-user", JSON.stringify(response.user));
+      localStorage.setItem("ticketing-user", JSON.stringify(res.data?.user));
       router.push("/");
     },
     onError: (error) => {
       toast({
-        title: "Login Failed ❌",
+        title: "Login Failed ",
         description:
           error?.response?.data?.message ||
           error?.message ||
@@ -46,14 +46,16 @@ export const useUserRegister = () => {
     mutationFn: authApi.register,
     onSuccess: (res) => {
       setUser(res.data?.user);
+      localStorage.setItem("ticketing-user", JSON.stringify(res.data?.user));
+      router.push("/");
       toast({
-        title: "Registration Successful 🎊",
+        title: "Registration Successful ",
         description: "Welcome aboard! Your account has been created.",
       });
     },
     onError: (error) => {
       toast({
-        title: "Registration Failed ❌",
+        title: "Registration Failed ",
         description:
           error?.response?.data?.message ||
           error?.message ||
