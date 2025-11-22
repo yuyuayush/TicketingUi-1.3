@@ -10,11 +10,20 @@ export default function TicketSuccess() {
   const { data: latestTicket, isLoading, error } = useGetUserLatestBookings();
 
 
-  if ( isLoading) {
+  if (isLoading) {
     return (
-      <Loading/>
+      <Loading />
     );
   }
+
+  if (!latestTicket?.concertId) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600">Ticket data is incomplete. Concert details are missing.</p>
+      </div>
+    );
+  }
+
 
   if (error) {
     return (
@@ -63,7 +72,7 @@ export default function TicketSuccess() {
             qrCode,
           }}
         />
-     
+
         {/* Back to Events Button */}
         <div className="mt-6 text-center">
           <Button

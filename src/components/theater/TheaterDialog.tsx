@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { GenericDialog } from "@/components/common/GenericDialog";
-import { ApiDropdown } from "@/components/ui/ApiDropdown"; // Imported reusable dropdown
+import { ApiDropdown } from "@/components/ui/ApiDropdown";
 import { useGetCities } from "@/hooks/useCity";
 import {
   Input,
@@ -10,7 +10,6 @@ import {
   Badge,
   Switch,
 } from "@/components/ui";
-// Removed unnecessary imports for Popover, Command components, cn, Check, and ChevronsUpDown
 
 export function TheaterDialog({
   open,
@@ -21,10 +20,8 @@ export function TheaterDialog({
   handleSave,
   isPending,
 }: any) {
-  // Fetch city data, now used directly by ApiDropdown
-  const { data: cities = [], isLoading } = useGetCities();
 
-  // Removed: const [cityPopoverOpen, setCityPopoverOpen] = useState(false);
+  const { data: cities = [], isLoading } = useGetCities();
 
   const handleFacilityChange = (value: string) => {
     setFormData((prev: any) => {
@@ -38,6 +35,25 @@ export function TheaterDialog({
     });
   };
 
+  // Handle pricing row updates
+  const updatePricing = (index: number, key: string, value: string) => {
+    const updated = [...formData.pricing];
+    updated[index][key] = value;
+    setFormData({ ...formData, pricing: updated });
+  };
+
+  const removePricingRow = (index: number) => {
+    const updated = formData.pricing.filter((_: any, i: number) => i !== index);
+    setFormData({ ...formData, pricing: updated });
+  };
+
+  const addPricingRow = () => {
+    setFormData({
+      ...formData,
+      pricing: [...formData.pricing, { category: "", price: "" }],
+    });
+  };
+
   return (
     <GenericDialog
       open={open}
@@ -46,6 +62,7 @@ export function TheaterDialog({
       onSave={handleSave}
       isPending={isPending}
     >
+
       {/* Theater Name */}
       <Input
         placeholder="Name"
@@ -53,7 +70,7 @@ export function TheaterDialog({
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
       />
 
-      {/* City Dropdown - Replaced with ApiDropdown */}
+      {/* City Dropdown */}
       <ApiDropdown
         label="City"
         placeholder="Select City"
@@ -61,7 +78,6 @@ export function TheaterDialog({
         onChange={(val) => setFormData({ ...formData, city: val })}
         data={cities}
         isLoading={isLoading}
-        // Use getLabel to combine city name and state as done previously
         getLabel={(city: any) => `${city.name} — ${city.state}`}
         getValue={(city: any) => city._id}
       />
@@ -72,6 +88,49 @@ export function TheaterDialog({
         value={formData.address}
         onChange={(e) => setFormData({ ...formData, address: e.target.value })}
       />
+
+      {/* Event Key */}
+      <div className="space-y-1">
+        <label className="text-sm font-medium">Seats.io Event Key</label>
+        <Input
+          placeholder="Enter Seats.io event key"
+          value={formData.eventKey}
+          onChange={(e) =>
+            setFormData({ ...formData, eventKey: e.target.value })
+          }
+        />
+      </div>
+
+      {/* Pricing Section */}
+      <div className="mt-4 space-y-2">
+        <label className="text-sm font-medium">Pricing Categories</label>
+
+        {formData.pricing.map((row: any, index: number) => (
+          <div key={index} className="flex gap-2 items-center">
+            <Input
+              placeholder="Category (VIP, Balcony...)"
+              value={row.category}
+              onChange={(e) => updatePricing(index, "category", e.target.value)}
+            />
+            <Input
+              placeholder="Price"
+              type="number"
+              value={row.price}
+              onChange={(e) => updatePricing(index, "price", e.target.value)}
+            />
+            <Button
+              variant="destructive"
+              onClick={() => removePricingRow(index)}
+            >
+              Remove
+            </Button>
+          </div>
+        ))}
+
+        <Button variant="secondary" onClick={addPricingRow}>
+          + Add Pricing Row
+        </Button>
+      </div>
 
       {/* Facilities */}
       <div>
@@ -126,6 +185,7 @@ export function TheaterDialog({
           }
         />
       </div>
+
     </GenericDialog>
   );
 }

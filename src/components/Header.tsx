@@ -7,24 +7,19 @@ import { Menu, X, Ticket, User } from "lucide-react";
 import { useAuthStore } from "@/store/useAuth";
 import { removeToken } from "@/lib/api";
 import { toast } from "@/hooks/use-toast";
+import { useAdminMenu } from "@/hooks/useAdminAuth";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
-  const { isAuthenticated, currentUser, resetAuth } = useAuthStore();
+  const { currentUser, resetAuth } = useAuthStore();
+  const { data: menuData } = useAdminMenu();
 
   // Close profile dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
-        setProfileOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(profileRef, () => setProfileOpen(false));
 
 
   const handleLogout = async () => {
@@ -65,11 +60,17 @@ export default function Header() {
         {/* Right Section */}
         <div className="flex items-center gap-4 relative">
           {/* Sell Tickets */}
-          <Link href="/seller">
-            <button className="hidden lg:inline-flex items-center gap-1 bg-gradient-to-r from-pink-600 to-red-500 text-white px-4 py-2 text-sm rounded-lg font-medium hover:opacity-90 transition">
-              <Ticket size={16} /> Sell Tickets
-            </button>
-          </Link>
+
+          {
+            menuData?.map((item) => (
+              <Link href={item.path}>
+                <button className="hidden lg:inline-flex items-center gap-1 bg-gradient-to-r from-pink-600 to-red-500 text-white px-4 py-2 text-sm rounded-lg font-medium hover:opacity-90 transition">
+                  <Ticket size={16} /> {item.label}
+                </button>
+              </Link>
+            ))
+          }
+
 
           {/* My Tickets */}
           <Link

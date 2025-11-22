@@ -61,6 +61,8 @@ export default function TheaterAdminPage() {
         latitude: theater.location?.coordinates?.[1] || "",
         longitude: theater.location?.coordinates?.[0] || "",
         isActive: theater.isActive ?? true,
+        eventKey: theater.eventKey,
+        pricing: theater.pricing,
       });
     } else {
       setEditTheater(null);
@@ -94,6 +96,8 @@ export default function TheaterAdminPage() {
       address: formData.address,
       facilities: formData.facilities,
       isActive: formData.isActive,
+       eventKey: formData.eventKey,
+        pricing: formData.pricing,
       location: {
         type: "Point",
         coordinates: [Number(formData.longitude), Number(formData.latitude)],
@@ -178,6 +182,10 @@ function useTheaterForm() {
     latitude: "",
     longitude: "",
     isActive: true,
+    eventKey: "",
+    pricing: [
+      { category: "", price: "" }
+    ]
   });
 
   const resetForm = () =>
@@ -189,6 +197,8 @@ function useTheaterForm() {
       latitude: "",
       longitude: "",
       isActive: true,
+      eventKey: "",
+      pricing: [{ category: "", price: "" }]
     });
 
   return { formData, setFormData, resetForm };

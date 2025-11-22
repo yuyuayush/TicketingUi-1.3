@@ -136,4 +136,10 @@ export const dummyTickets: TicketType[] = [
   },
 ];
 
+export const USER_ROLES ={
+  admin:"ADMIN",
+  user:'USER',
+  theater_owner:'THEATER_OWNER'
+}
+
 

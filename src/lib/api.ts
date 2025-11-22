@@ -1,4 +1,4 @@
-import { ApiStripeResponse, IAdminUpdateUserData, IBooking, IConcertData, IGetAllUsersParams, IPaymentInitiatePayload, IPaymentRefundPayload, IPaymentVerifyPayload, IResetPasswordData, ISeat, ISeatCreatePayload, ISeatLockPayload, ISeatUnlockPayload, IStripePaymentInitiatePayload, IUpdatePasswordData, IUpdateProfileData, IUser, User } from "./types";
+import { ApiStripeResponse, IAdminUpdateUserData, IBooking, IConcertData, IGetAllUsersParams, IPaymentInitiatePayload, IPaymentRefundPayload, IPaymentVerifyPayload, IResetPasswordData, ISeat, ISeatCreatePayload, ISeatLockPayload, ISeatUnlockPayload, IStripePaymentInitiatePayload, IUpdatePasswordData, IUpdateProfileData, IUser, MenuItem, User } from "./types";
 
 // API service layer for connecting frontend to backend
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
@@ -638,6 +638,66 @@ export const StripeApi = {
         });
     },
 };
+
+
+export const seatsioApi = {
+    async lockSeats(payload: {
+        chartKey: string;
+        seats: string[];
+    }): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/seats/lock-seats`, {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+    },
+
+    async releaseSeats(payload: {
+        chartKey: string;
+        seats: string[];
+        holdToken: string;
+    }): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/seats/release-seats`, {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+    },
+
+    async confirmBooking(payload: {
+        chartKey: string;
+        seats: string[];
+        holdToken: string;
+        userId: string;
+    }): Promise<ApiResponse> {
+        return await apiRequest<ApiResponse>(`/seats/confirm-booking`, {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+    },
+};
+
+
+
+
+export const adminApi = {
+    /** Fetch full admin menu */
+    async getAdminMenu(): Promise<ApiResponse<{ menu: MenuItem[] }>> {
+        return await apiRequest<ApiResponse<{ menu: MenuItem[] }>>(`/admin/admin-menu`, {
+            method: "GET",
+        });
+    },
+
+    /** Fetch admin side menu (optional / role-based) */
+    async getAdminSideMenu(): Promise<ApiResponse<{ menu: MenuItem[] }>> {
+        return await apiRequest<ApiResponse<{ menu: MenuItem[] }>>(`/admin/admin-side-menu`, {
+            method: "GET",
+        });
+    },
+    
+
+};
+
+
+
 
 
 

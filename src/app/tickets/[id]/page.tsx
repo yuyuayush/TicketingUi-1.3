@@ -116,7 +116,7 @@ export default function TicketPage() {
         {/* Footer Help */}
         <div className="bg-blue-50 border-blue-200 border p-4 rounded-lg">
           <p className="text-blue-800 text-sm">
-            Need help? Contact support@tixly.com
+            Need help? Contact support@ticketing.com
           </p>
         </div>
 

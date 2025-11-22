@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ApiDropdown } from "@/components/ui/ApiDropdown";
 import { useGetTheaters } from "@/hooks/useTheater";
-import { useGetMovies } from "@/hooks/useMovie";
 
 interface Pricing {
   gold: string;
@@ -35,7 +34,7 @@ export const ShowFormDialog: React.FC<ShowFormDialogProps> = ({
 }) => {
   // Fetch data when dialog opens
   const { data: theaters = [], isLoading: theatersLoading } = useGetTheaters();
-  const { data: movies = [], isLoading: moviesLoading } = useGetMovies();
+ 
 
   return (
     <GenericDialog
@@ -47,15 +46,6 @@ export const ShowFormDialog: React.FC<ShowFormDialogProps> = ({
     >
       <div className="space-y-4">
         {/* Movie Dropdown */}
-        <ApiDropdown
-          label="Movie"
-          value={formData.movie}
-          onChange={(val) => setFormData({ ...formData, movie: val })}
-          data={movies}
-          isLoading={moviesLoading}
-          getLabel={(item) => item.title}
-          getValue={(item) => item._id}
-        />
 
         {/* Theater Dropdown */}
         <ApiDropdown
