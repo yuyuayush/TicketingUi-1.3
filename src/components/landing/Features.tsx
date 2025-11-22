@@ -81,7 +81,7 @@ const Features = () => {
       <div className="relative z-10">
         <SectionTitle
           title="The Future of Ticketing"
-          subtitle="Why Choose CYBERTIX"
+          subtitle="Why Choose Ticketing"
           color="blue"
         />
 

@@ -67,7 +67,7 @@ const Testimonials = () => {
       id: 1,
       name: "Alex Johnson",
       role: "Music Enthusiast",
-      content: "Booking tickets with CYBERTIX was a breeze! The interface is sleek and the process was lightning fast. Attended my dream concert with zero hassle.",
+      content: "Booking tickets with Ticketing was a breeze! The interface is sleek and the process was lightning fast. Attended my dream concert with zero hassle.",
       rating: 5,
       avatar: "https://placehold.co/80x80/EC4899/FFFFFF?text=AJ"
     },
@@ -75,7 +75,7 @@ const Testimonials = () => {
       id: 2,
       name: "Sarah Williams",
       role: "Event Organizer",
-      content: "As someone in the industry, I appreciate how CYBERTIX makes ticketing secure and efficient. The analytics dashboard is a game-changer for tracking sales.",
+      content: "As someone in the industry, I appreciate how Ticketing makes ticketing secure and efficient. The analytics dashboard is a game-changer for tracking sales.",
       rating: 5,
       avatar: "https://placehold.co/80x80/3B82F6/FFFFFF?text=SW"
     },
@@ -83,7 +83,7 @@ const Testimonials = () => {
       id: 3,
       name: "Michael Chen",
       role: "Frequent Attendee",
-      content: "The instant e-tickets feature is amazing. No more waiting in long lines! CYBERTIX has truly revolutionized the concert experience in Australia.",
+      content: "The instant e-tickets feature is amazing. No more waiting in long lines! Ticketing has truly revolutionized the concert experience in Australia.",
       rating: 4,
       avatar: "https://placehold.co/80x80/A855F7/FFFFFF?text=MC"
     }

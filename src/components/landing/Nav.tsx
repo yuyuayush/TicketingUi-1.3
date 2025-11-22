@@ -41,7 +41,7 @@ const Nav = () => {
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
           <div className="text-2xl font-extrabold tracking-widest text-white cursor-pointer">
-            <span className="text-pink-500 font-display shadow-text-pink">CYBER</span><span className="text-blue-500 font-display">TIX</span>
+            <span className="text-pink-500 font-display shadow-text-pink">TICKETING</span>
           </div>
         </Link>
 

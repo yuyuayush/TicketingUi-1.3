@@ -21,7 +21,7 @@ const Footer = () => {
     <footer className="py-10 border-t border-white/10">
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm">
         <div className="text-white/50 mb-4 md:mb-0">
-          &copy; {new Date().getFullYear()} CYBERTIX. All rights reserved.
+          &copy; {new Date().getFullYear()} Ticketing. All rights reserved.
         </div>
         <div className="flex space-x-6 text-white/70">
           <a href="#" className="hover:text-pink-500 transition-colors duration-200">Privacy Policy</a>

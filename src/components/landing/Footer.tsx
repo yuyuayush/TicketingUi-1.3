@@ -21,7 +21,7 @@ const Footer = () => {
     <footer className="py-10 border-t border-white/10">
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm">
         <div className="text-white/50 mb-4 md:mb-0">
-          &copy; 2025 CYBERTIX. All rights reserved.
+          &copy; {new Date().getFullYear()} Ticketing. All rights reserved.
         </div>
         <div className="flex space-x-6 text-white/70">
           <a href="#" className="hover:text-pink-500 transition-colors duration-200">Privacy Policy</a>
@@ -29,7 +29,7 @@ const Footer = () => {
           <a href="#" className="hover:text-purple-500 transition-colors duration-200">Contact</a>
         </div>
       </div>
-      <div 
+      <div
         className="h-0.5 w-1/3 mx-auto mt-6 bg-gradient-to-r from-transparent via-pink-500 to-transparent opacity-50"
         style={{ boxShadow: `0 0 10px ${neonColors.pink}` }}
       ></div>
